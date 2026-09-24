@@ -443,18 +443,12 @@ async def main(page: ft.Page):
                 spacing=6,
             )
 
+        stripe = ft.BorderSide(6, bar_color)
+        thin = ft.BorderSide(1, LINE)
         return ft.Container(
-            content=ft.Row(
-                [
-                    ft.Container(width=6, bgcolor=bar_color, border_radius=3),
-                    ft.Container(body, expand=True),
-                ],
-                spacing=10,
-                vertical_alignment=ft.CrossAxisAlignment.STRETCH,
-            ),
+            content=body,
             padding=box(12, 10, 12, 10),
-            border=outline(1, LINE),
-            border_radius=10,
+            border=ft.Border(left=stripe, top=thin, right=thin, bottom=thin),
         )
 
     async def refresh() -> None:
@@ -472,8 +466,11 @@ async def main(page: ft.Page):
                     await notify(sym, a["signal"])
                 st.prev[key] = a["signal"]
                 cards.append(make_card(sym, a))
-            except (RuntimeError, ValueError, ZeroDivisionError) as ex:
+            except RuntimeError as ex:
                 cards.append(make_card(sym, None, str(ex)))
+            # noinspection PyBroadException
+            except Exception as ex:
+                cards.append(make_card(sym, None, f"خطا: {type(ex).__name__}: {ex}"))
             await asyncio.sleep(0.15)
         listview.controls = cards
         status.value = "آخرین به‌روزرسانی: " + time.strftime("%H:%M:%S")
