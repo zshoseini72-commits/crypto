@@ -6,6 +6,9 @@ requires-python = ">=3.10"
 dependencies = ["flet"]
 
 [tool.flet]
-product = "دیدبان سیگنال"
+product = "SignalWatch"
 org = "com.example"
 company = "SignalWatch"
+
+[tool.flet.android.permission]
+"android.permission.INTERNET" = true
