@@ -1,0 +1,11 @@
+[project]
+name = "signal-watch"
+version = "1.0.0"
+description = "دیدبان سیگنال رمزارز"
+requires-python = ">=3.10"
+dependencies = ["flet"]
+
+[tool.flet]
+product = "دیدبان سیگنال"
+org = "com.example"
+company = "SignalWatch"
